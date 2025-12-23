@@ -18,7 +18,7 @@ const GlassCard: React.FC<GlassCardProps> = ({ isDark }) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: x * 1.2, y: -y * 1.2 }); // Reduced tilt for better usability
+    setTilt({ x: x * 1.2, y: -y * 1.2 });
   };
 
   const handleMouseLeave = () => {
@@ -31,10 +31,10 @@ const GlassCard: React.FC<GlassCardProps> = ({ isDark }) => {
   const borderColor = isDark ? 'border-blue-900/30' : 'border-white/10';
   const bgColor = isDark ? 'bg-black/30' : 'bg-white/5';
   
-  // High-end balanced shadow
+  // Professional smooth shadow falloff to prevent "disconnected" look
   const shadowStyle = isDark 
-    ? 'shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)]' 
-    : 'shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)]';
+    ? 'shadow-[0_40px_100px_-20px_rgba(0,0,0,0.7)]' 
+    : 'shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)]';
 
   return (
     <div 
@@ -48,7 +48,6 @@ const GlassCard: React.FC<GlassCardProps> = ({ isDark }) => {
       <div className={`w-full backdrop-blur-[40px] rounded-[28px] md:rounded-[40px] p-8 md:p-12 border transition-all duration-1000 relative overflow-hidden group 
         ${bgColor} ${borderColor} ${shadowStyle}`}
       >
-        {/* Subtle inner corner guides */}
         <div className={`absolute top-0 left-0 w-6 h-6 border-l border-t transition-colors duration-1000 ${isDark ? 'border-blue-900/40' : 'border-white/10'}`} />
         <div className={`absolute bottom-0 right-0 w-6 h-6 border-r border-b transition-colors duration-1000 ${isDark ? 'border-blue-900/40' : 'border-white/10'}`} />
 
@@ -63,7 +62,6 @@ const GlassCard: React.FC<GlassCardProps> = ({ isDark }) => {
                  className={`w-full h-full rounded-full object-cover transition-all duration-1000 ${isDark ? 'opacity-80 contrast-110' : 'opacity-100'}`}
                />
             </div>
-            {/* Engineering circle reduced in opacity for elegance */}
             <svg className="absolute -inset-4 w-[calc(100%+32px)] h-[calc(100%+32px)] animate-[spin_60s_linear_infinite] pointer-events-none opacity-[0.15]">
               <circle cx="50%" cy="50%" r="48%" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 6" className={isDark ? 'text-blue-500' : 'text-blue-300'} />
             </svg>
@@ -99,17 +97,22 @@ const GlassCard: React.FC<GlassCardProps> = ({ isDark }) => {
             <span className="font-semibold tracking-[0.3em] text-[9px] uppercase whitespace-nowrap">Source Repository</span>
           </a>
 
-          <div className={`flex items-center gap-3 transition-opacity duration-1000 ${isDark ? 'opacity-30' : 'opacity-40'}`}>
-            <div className="w-1 h-1 rounded-full bg-current animate-pulse" />
-            <span className={`text-[7px] md:text-[8px] uppercase tracking-[0.2em] font-mono ${isDark ? 'text-blue-500' : 'text-blue-100'}`}>
-              Interactive Physical Mesh Engine
+          {/* Interaction status with refined English instructions */}
+          <div className={`flex flex-col items-center gap-1.5 transition-opacity duration-1000 ${isDark ? 'opacity-30' : 'opacity-40'}`}>
+            <div className="flex items-center gap-3">
+              <div className="w-1 h-1 rounded-full bg-current animate-pulse" />
+              <span className={`text-[7px] md:text-[8px] uppercase tracking-[0.2em] font-mono ${isDark ? 'text-blue-500' : 'text-blue-100'}`}>
+                Interactive Physical Mesh Engine
+              </span>
+              <div className="w-1 h-1 rounded-full bg-current animate-pulse" />
+            </div>
+            <span className={`text-[6px] md:text-[7px] uppercase tracking-[0.15em] font-mono opacity-80 ${isDark ? 'text-blue-600' : 'text-blue-200'}`}>
+              Click and drag to slice the simulation
             </span>
-            <div className="w-1 h-1 rounded-full bg-current animate-pulse" />
           </div>
         </div>
       </div>
       
-      {/* Refined Footer Status */}
       <div className={`mt-5 md:mt-8 flex items-center gap-6 transition-all duration-1000 ${isDark ? 'opacity-10 text-blue-800' : 'opacity-20 text-blue-100'}`}>
         <span className="text-[6px] md:text-[7px] uppercase tracking-[0.6em]">System_Stable</span>
         <span className="text-[6px] md:text-[7px] uppercase tracking-[0.6em]">Leo_Wang.ID</span>

@@ -5,16 +5,17 @@ import GlassCard from './components/GlassCard';
 import ThemeToggle from './components/ThemeToggle';
 
 function App() {
-  const [isDark, setIsDark] = useState(true);
+  // Default to Light Mode (Day state)
+  const [isDark, setIsDark] = useState(false);
   const [isPhoneLandscape, setIsPhoneLandscape] = useState(false);
 
   useEffect(() => {
+    // Initial and dynamic background colors
     document.body.style.backgroundColor = isDark ? '#020617' : '#1e3a8a';
     document.body.style.transition = 'background-color 1s ease';
 
     const checkOrientation = () => {
       const isLandscape = window.innerWidth > window.innerHeight;
-      // Target phones specifically for the landscape block
       const isPhoneScale = window.innerWidth <= 950 && window.innerHeight <= 500;
       setIsPhoneLandscape(isLandscape && isPhoneScale);
     };
@@ -50,7 +51,6 @@ function App() {
           Leo_Wang. Blueprint // 01
         </div>
         <div className="pointer-events-auto ml-auto">
-          {/* Refined sizes for the toggle: 36px on mobile, 44px on desktop */}
           <ThemeToggle 
             isDark={isDark} 
             onToggle={setIsDark} 
