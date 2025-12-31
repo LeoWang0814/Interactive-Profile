@@ -31,7 +31,8 @@ export const PROFILE = {
   subName: 'Leo Wang',
   tagline: 'Build • Simulate • Ship',
   githubUrl: 'https://github.com/LeoWang0814',
-  profileImg: 'https://youke2.picui.cn/s1/2025/12/22/694936dca528e.jpg'
+  blogUrl: 'https://blogs.blueberryowo.me/',
+  profileImg: 'https://image-host.blueberryowo.me/profile.jpg'
 };
 
 export const PARTICLE_CONFIG = {

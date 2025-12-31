@@ -164,7 +164,6 @@ const PhysicsMesh: React.FC<PhysicsMeshProps> = ({ isDark }) => {
           renderBuffer[vIdx++] = pData[p2 + 1];
           renderBuffer[vIdx++] = 0;
         } else {
-          // Hide inactive lines by collapsing them (cheaper than rebuilding buffer)
           renderBuffer[vIdx++] = 0; renderBuffer[vIdx++] = 0; renderBuffer[vIdx++] = 0;
           renderBuffer[vIdx++] = 0; renderBuffer[vIdx++] = 0; renderBuffer[vIdx++] = 0;
         }
@@ -172,7 +171,6 @@ const PhysicsMesh: React.FC<PhysicsMeshProps> = ({ isDark }) => {
       geometry.attributes.position.needsUpdate = true;
     };
 
-    // Interaction
     const handleMove = (e: any) => {
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -218,14 +216,13 @@ const PhysicsMesh: React.FC<PhysicsMeshProps> = ({ isDark }) => {
     const animate = (time: number) => {
       frameId = requestAnimationFrame(animate);
 
-      // Doubled the simulation speed by multiplying delta time by 2.0
+      // Speed Up logic: Multiple delta by 2.0 to double the simulation speed
       const deltaTime = ((time - lastTime) / 1000) * 2.0;
       lastTime = time;
 
-      // Cap deltaTime at a slightly higher threshold (0.2s) to accommodate doubled speed while preventing "spiral of death"
+      // Accumulator caps: Increase slightly to 0.2 to handle the double speed without dropping frames
       accumulator += Math.min(deltaTime, 0.2);
 
-      // Consume accumulated time with fixed physics steps
       while (accumulator >= fixedTimeStep) {
         solve();
         accumulator -= fixedTimeStep;
@@ -259,7 +256,7 @@ const PhysicsMesh: React.FC<PhysicsMeshProps> = ({ isDark }) => {
     <div className={`fixed inset-0 z-0 transition-all duration-1000 ${isDark ? 'bg-[#0a1229]' : 'bg-[#1e3a8a]'}`}>
       <div ref={containerRef} className="w-full h-full opacity-70" />
       <div className={`absolute bottom-4 left-6 hidden sm:block font-mono text-[9px] uppercase tracking-[0.2em] pointer-events-none transition-colors duration-1000 ${isDark ? 'text-blue-400/30' : 'text-blue-100/30'}`}>
-        Blueprint.Engine // Stable_HighSpeed
+        Blueprint.Engine // Stable_v2.0_HighSpeed
       </div>
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
     </div>
